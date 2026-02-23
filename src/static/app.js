@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const sortSelect = document.getElementById("activity-sort");
   let allActivities = {};
 
-  // Function to fetch activities from API
   async function fetchActivities() {
     try {
       const response = await fetch("/activities");
@@ -51,17 +50,12 @@ document.addEventListener("DOMContentLoaded", () => {
       const spotsLeft = details.max_participants - details.participants.length;
       const participantsHTML =
         details.participants.length > 0
-          ? `<div class="participants-section">
-              <h5>Participants:</h5>
-              <ul class="participants-list">
-                ${details.participants
+          ? `<div class=\"participants-section\">\n              <h5>Participants:</h5>\n              <ul class=\"participants-list\">\n                ${details.participants
                   .map(
                     (email) =>
-                      `<li><span class="participant-email">${email}</span><button class="delete-btn" data-activity="${name}" data-email="${email}">❌</button></li>`
+                      `<li><span class=\"participant-email\">${email}</span><button class=\"delete-btn\" data-activity=\"${name}\" data-email=\"${email}\">❌</button></li>`
                   )
-                  .join("")}
-              </ul>
-            </div>`
+                  .join("")}\n              </ul>\n            </div>`
           : `<p><em>No participants yet</em></p>`;
       activityCard.innerHTML = `
         <h4>${name}</h4>
@@ -91,7 +85,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Handle unregister functionality
   async function handleUnregister(event) {
     const button = event.target;
     const activity = button.getAttribute("data-activity");
@@ -134,7 +127,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Handle form submission
   signupForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
@@ -179,7 +171,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Event listeners for search and sort
   if (searchInput) {
     searchInput.addEventListener("input", renderActivities);
   }
@@ -187,6 +178,5 @@ document.addEventListener("DOMContentLoaded", () => {
     sortSelect.addEventListener("change", renderActivities);
   }
 
-  // Initialize app
   fetchActivities();
 });
